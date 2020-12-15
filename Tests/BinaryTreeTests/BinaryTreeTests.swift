@@ -1,5 +1,5 @@
 import XCTest
-import BinaryTree
+@testable import BinaryTree
 
 final class BinaryTreeTests: XCTestCase {
   var tree: Tree<Int, BinaryChildren<Int>>!
@@ -9,9 +9,11 @@ final class BinaryTreeTests: XCTestCase {
   override func setUp() {
     super.setUp()
     
-    self.tree = .empty
-    self.initialItems = [5,10,15,6]
-    self.capturedItems = []
+    tree = .empty
+    initialItems = [5, 5, 10, 15, 6]
+    initialItems.forEach{tree.inserting($0)}
+
+    capturedItems = []
   }
   
   override func tearDown() {
@@ -21,10 +23,37 @@ final class BinaryTreeTests: XCTestCase {
     
     super.tearDown()
   }
+
+  func test_init() {
+    XCTAssertEqual(
+      tree,
+      .node(
+        value: 5,
+        .init(
+          left: .empty,
+          right: .node(
+            value: 10, .init(
+              left: .node(
+                value: 6,
+                .init(
+                  left: .empty,
+                  right: .empty
+                )
+              ), right: .node(
+                value: 15,
+                .init(
+                  left: .empty,
+                  right: .empty
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  }
   
   func test_traversals_preOrder() {
-    initialItems.forEach{tree.inserting($0)}
-    
     tree.traverse(method: .preOrder) { [weak self] value, _ in
       self?.capturedItems.append(value)
     }
@@ -33,8 +62,6 @@ final class BinaryTreeTests: XCTestCase {
   }
   
   func test_traversals_inOrder() {
-    initialItems.forEach{tree.inserting($0)}
-
     tree.traverse(method: .inOrder) { [weak self] value, _ in
       self?.capturedItems.append(value)
     }
@@ -43,8 +70,6 @@ final class BinaryTreeTests: XCTestCase {
   }
 
   func test_traversals_postOrder() {
-    initialItems.forEach{tree.inserting($0)}
-
     tree.traverse(method: .postOrder) { [weak self] value, _ in
       self?.capturedItems.append(value)
     }
@@ -53,21 +78,28 @@ final class BinaryTreeTests: XCTestCase {
   }
 
   func test_height(){
-    tree.inserting(initialItems.removeFirst())
+    var tree: Tree<Int, BinaryChildren<Int>> = .empty
+    tree.inserting(5)
 
     XCTAssertEqual(tree.height, 1)
 
-    tree.inserting(initialItems.removeFirst())
+    tree.inserting(10)
 
     XCTAssertEqual(tree.height, 2)
 
-    tree.inserting(initialItems.removeFirst())
+    tree.inserting(15)
 
     XCTAssertEqual(tree.height, 3)
 
-    tree.inserting(initialItems.removeFirst())
+    tree.inserting(6)
 
     XCTAssertEqual(tree.height, 3)
+  }
+
+  func test_contains(){
+    initialItems.forEach{
+      XCTAssertTrue(tree.contains($0))
+    }
   }
 
   func test_string_preOrder(){
@@ -101,6 +133,8 @@ final class BinaryTreeTests: XCTestCase {
     ("test_traversals_preOrder", test_traversals_preOrder),
     ("test_traversals_inOrder", test_traversals_inOrder),
     ("test_traversals_postOrder", test_traversals_postOrder),
+    ("test_string_preOrder", test_string_preOrder),
+    ("test_contains", test_contains),
     ("test_height", test_height),
   ]
 }
