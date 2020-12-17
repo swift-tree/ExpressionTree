@@ -1,8 +1,8 @@
 import XCTest
-@testable import BinaryTree
+import BinaryTree
 
 final class BinaryTreeTests: XCTestCase {
-  var tree: Tree<Int, BinaryChildren<Int>>!
+  var tree: BinaryTree<Int>!
   var initialItems: [Int]!
   var capturedItems: [Int]!
   
@@ -25,32 +25,7 @@ final class BinaryTreeTests: XCTestCase {
   }
 
   func test_init() {
-    XCTAssertEqual(
-      tree,
-      .node(
-        value: 5,
-        .init(
-          left: .empty,
-          right: .node(
-            value: 10, .init(
-              left: .node(
-                value: 6,
-                .init(
-                  left: .empty,
-                  right: .empty
-                )
-              ), right: .node(
-                value: 15,
-                .init(
-                  left: .empty,
-                  right: .empty
-                )
-              )
-            )
-          )
-        )
-      )
-    )
+    XCTAssertEqual(tree, tree5_10_6_15)
   }
   
   func test_traversals_preOrder() {
@@ -78,7 +53,7 @@ final class BinaryTreeTests: XCTestCase {
   }
 
   func test_height(){
-    var tree: Tree<Int, BinaryChildren<Int>> = .empty
+    var tree: BinaryTree<Int> = .empty
     tree.inserting(5)
 
     XCTAssertEqual(tree.height, 1)
@@ -107,9 +82,17 @@ final class BinaryTreeTests: XCTestCase {
     XCTAssertEqual(tree.search(1), [])
   }
 
+  func test_contains_other_tree(){
+    XCTAssertTrue(tree.contains(tree5_10_6_15))
+    XCTAssertTrue(tree5_10_6_15.contains(tree))
+    XCTAssertTrue(tree5_10_6_15.contains(tree10_6_15))
+    XCTAssertTrue(tree.contains(.empty))
+    XCTAssertTrue(BinaryTree<Int>.empty.contains(.empty))
+  }
+
   func test_string_preOrder(){
     var paths = [String]()
-    var tree: Tree<String, BinaryChildren<String>> = .empty
+    var tree: BinaryTree<String> = .empty
     tree.inserting("abc")
     tree.inserting("bca")
     tree.inserting("acb")
@@ -134,11 +117,55 @@ final class BinaryTreeTests: XCTestCase {
     )
   }
 
+  private let tree5_10_6_15: BinaryTree<Int> = .node(
+    value: 5,
+    .init(
+      left: .empty,
+      right: .node(
+        value: 10, .init(
+          left: .node(
+            value: 6,
+            .init(
+              left: .empty,
+              right: .empty
+            )
+          ), right: .node(
+            value: 15,
+            .init(
+              left: .empty,
+              right: .empty
+            )
+          )
+        )
+      )
+    )
+  )
+
+  private let tree10_6_15: BinaryTree<Int> = .node(
+    value: 10, .init(
+      left: .node(
+        value: 6,
+        .init(
+          left: .empty,
+          right: .empty
+        )
+      ), right: .node(
+        value: 15,
+        .init(
+          left: .empty,
+          right: .empty
+        )
+      )
+    )
+  )
+
   static var allTests = [
+    ("test_init", test_init),
     ("test_traversals_preOrder", test_traversals_preOrder),
     ("test_traversals_inOrder", test_traversals_inOrder),
     ("test_traversals_postOrder", test_traversals_postOrder),
     ("test_string_preOrder", test_string_preOrder),
+    ("test_contains_other_tree", test_contains_other_tree),
     ("test_contains_bool", test_contains_bool),
     ("test_height", test_height),
   ]

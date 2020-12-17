@@ -1,4 +1,9 @@
 public struct BinaryChildren<T> {
+  public init(left: BinaryTree<T>, right: BinaryTree<T>) {
+    self.left = left
+    self.right = right
+  }
+
   public let left: BinaryTree<T>
   public let right: BinaryTree<T>
 }
