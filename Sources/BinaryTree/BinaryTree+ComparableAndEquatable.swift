@@ -4,11 +4,11 @@ public extension Tree where Children == BinaryChildren<Element>, Element: Equata
     elements.forEach{tree.insert($0)}
     self = tree
   }
-
+  
   mutating func insert(_ i: Element) { self = inserting(i) }
-
+  
   mutating func remove(_ i: Element) { self = removing(i) }
-
+  
   func removing(_ i: Element) -> Self {
     switch self {
     case .empty: return self
@@ -31,9 +31,9 @@ public extension Tree where Children == BinaryChildren<Element>, Element: Equata
       return .node(value: value, .init(children.left, children.right.removing(i)))
     }
   }
-
+  
   mutating func remove(treeUnder i: Element) { self = removing(treeUnder: i) }
-
+  
   func removing(treeUnder i: Element) -> Self {
     switch self {
     case .empty:  return self
