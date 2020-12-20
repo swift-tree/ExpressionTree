@@ -1,3 +1,5 @@
+import Tree
+
 public extension Tree where Children == BinaryChildren<Element>, Element: Equatable & Comparable {
   init(_ elements: [Element]) {
     var tree: BinaryTree<Element> = .empty

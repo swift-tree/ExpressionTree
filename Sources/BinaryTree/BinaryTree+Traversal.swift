@@ -1,3 +1,5 @@
+import Tree
+
 public enum DepthFirstTraversal {
   case preOrder
   case inOrder

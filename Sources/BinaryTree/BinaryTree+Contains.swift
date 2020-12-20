@@ -1,3 +1,5 @@
+import Tree
+
 public extension Tree where Children == BinaryChildren<Element>, Element: Equatable & Comparable {
   func contains(_ tree: Tree) -> Bool {
     switch (tree, self) {

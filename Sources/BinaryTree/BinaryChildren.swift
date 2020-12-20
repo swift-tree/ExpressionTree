@@ -1,3 +1,5 @@
+import Tree
+
 public struct BinaryChildren<T>: ChildrenProtocol {
   public var left: BinaryTree<T>
   public var right: BinaryTree<T>
