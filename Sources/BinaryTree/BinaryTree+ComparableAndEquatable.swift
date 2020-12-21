@@ -54,7 +54,7 @@ public extension Tree where Children == BinaryChildren<Element>, Element: Equata
       return .node(value: value, .init(children.left.inserting(i), children.right))
     case let .node(value: value, children):
       return .node(value: value, .init(children.left, children.right.inserting(i)))
-    case .empty: return .node(value: i, .init(.empty, .empty))
+    case .empty: return .node(value: i, .empty)
     }
   }
 }
