@@ -4,7 +4,7 @@ public struct BinaryChildren<T>: ChildrenProtocol {
   public var left: BinaryTree<T>
   public var right: BinaryTree<T>
 
-  public static var empty: Self { .init(.empty, .empty) }
+  public static var noChildren: Self { .init(.empty, .empty) }
   
   public init(_ left: BinaryTree<T>, _ right: BinaryTree<T>) {
     self.left = left
