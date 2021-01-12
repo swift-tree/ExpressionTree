@@ -9,13 +9,13 @@ let package = Package(
       name: "BinaryTree",
       targets: ["BinaryTree"]),
   ],
-  dependencies: [],
+  dependencies: [.package(url: "https://github.com/erkekin/Tree.git", .upToNextMajor(from: "0.1.1"))],
   targets: [
     .target(
       name: "BinaryTree",
-      dependencies: []),
+      dependencies: ["Tree"]),
     .testTarget(
       name: "BinaryTreeTests",
-      dependencies: ["BinaryTree"]),
+      dependencies: ["BinaryTree", "Tree"]),
   ]
 )

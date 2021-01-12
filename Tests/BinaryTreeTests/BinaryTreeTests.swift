@@ -1,5 +1,6 @@
 import XCTest
 import BinaryTree
+import Tree
 
 final class BinaryTreeTests: XCTestCase {
   var tree: BinaryTree<Int>!
@@ -25,11 +26,13 @@ final class BinaryTreeTests: XCTestCase {
 
   func test_min_no_left_tree() {
     let tree = BinaryTree<Int>([6, 7, 8 ,9 ,10])
+
     XCTAssertEqual(tree.min, tree)
   }
 
   func test_min_no_right_tree() {
     let tree = BinaryTree<Int>([6, 7, 8 ,9 ,10].reversed())
+    
     XCTAssertEqual(tree.min, .node(value: 6, .init(.empty, .empty)))
   }
 
@@ -38,7 +41,7 @@ final class BinaryTreeTests: XCTestCase {
   }
 
   func test_remove_root_1_level() {
-    var tree = BinaryTree<Int>.empty.inserting(1)
+    var tree = BinaryTree<Int>([1])
     tree.remove(1)
 
     XCTAssertEqual(tree, .empty)
@@ -100,7 +103,7 @@ final class BinaryTreeTests: XCTestCase {
     var tree = BinaryTree<Int>([2, 1])
     tree.remove(treeUnder: 1)
 
-    XCTAssertEqual(tree, BinaryTree<Int>.empty.inserting(2))
+    XCTAssertEqual(tree, BinaryTree<Int>([2]))
   }
   
   func test_traversals_preOrder() {
