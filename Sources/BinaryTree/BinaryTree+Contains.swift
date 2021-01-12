@@ -22,7 +22,7 @@ public extension Tree where Children == BinaryChildren<Element>, Element: Equata
       return true
     }
   }
-
+  
   func search(initialPath: [Element] = [], _ i: Element) -> [Element] {
     guard case let .node(value: value, children) = self else { return [] }
     let path = initialPath + [value]
