@@ -1,8 +1,7 @@
 import Tree
 
 public struct BinaryChildren<T>: ChildrenProtocol {
-  public var left: BinaryTree<T>
-  public var right: BinaryTree<T>
+  public var left, right: BinaryTree<T>
 
   public static var noChildren: Self { .init(.empty, .empty) }
   

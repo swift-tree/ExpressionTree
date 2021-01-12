@@ -29,7 +29,7 @@ final class BinaryTreeTests: XCTestCase {
     
     XCTAssertEqual(tree.min, tree)
   }
-  
+
   func test_min_no_right_tree() {
     let tree = BinaryTree<Int>([6, 7, 8 ,9 ,10].reversed())
     
@@ -156,8 +156,8 @@ final class BinaryTreeTests: XCTestCase {
   }
   
   func test_search_path(){
-    XCTAssertEqual(tree.search(6), [5,10,6])
-    XCTAssertEqual(tree.search(1), [])
+    XCTAssertEqual(tree.search(6), .node(value: 5, .init(.node(value: 10, .init(.node(value: 6, .noChildren))))))
+    XCTAssertEqual(tree.search(1), .empty)
   }
   
   func test_contains_other_tree(){
