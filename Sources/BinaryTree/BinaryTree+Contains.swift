@@ -1,6 +1,6 @@
 import Tree
 
-public extension Tree where Children == BinaryChildren<Element>, Element: Equatable & Comparable {
+public extension Tree where Children == BinaryChildren<Element>, Element: Comparable {
   func contains(_ tree: Tree) -> Bool {
     switch (tree, self) {
     case let (.node(value: newValue, _), .node(value: oldValue, _)) where newValue == oldValue:

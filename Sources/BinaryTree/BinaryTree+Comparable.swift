@@ -1,13 +1,11 @@
 import Tree
 
-public extension Tree where Children == BinaryChildren<Element>, Element: Equatable & Comparable {
+public extension Tree where Children == BinaryChildren<Element>, Element: Comparable {
   init(_ elements: [Element]) {
     var tree: BinaryTree<Element> = .empty
     elements.forEach{tree.insert($0)}
     self = tree
   }
-  
-  mutating func insert(_ i: Element) { self = inserting(i) }
   
   mutating func remove(_ i: Element) { self = removing(i) }
   
@@ -46,7 +44,9 @@ public extension Tree where Children == BinaryChildren<Element>, Element: Equata
       return .node(value: value, .init(children.left, children.right.removing(treeUnder: i)))
     }
   }
-  
+
+  mutating func insert(_ i: Element) { self = inserting(i) }
+
   func inserting(_ i: Element) -> Self {
     switch self {
     case .node(value: i, _): return self
