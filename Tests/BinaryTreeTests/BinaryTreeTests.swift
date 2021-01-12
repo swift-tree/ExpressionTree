@@ -33,11 +33,11 @@ final class BinaryTreeTests: XCTestCase {
   func test_min_no_right_tree() {
     let tree = BinaryTree<Int>([6, 7, 8 ,9 ,10].reversed())
     
-    XCTAssertEqual(tree.min, .node(value: 6, .empty))
+    XCTAssertEqual(tree.min, .node(value: 6, .noChildren))
   }
   
   func test_min_right_tree() {
-    XCTAssertEqual(tree.children?.right.min, .node(value: 6, .empty))
+    XCTAssertEqual(tree.children?.right.min, .node(value: 6, .noChildren))
   }
   
   func test_remove_root_1_level() {
@@ -198,10 +198,10 @@ final class BinaryTreeTests: XCTestCase {
         value: 10, .init(
           .node(
             value: 6,
-            .empty
+            .noChildren
           ), .node(
             value: 15,
-            .empty
+            .noChildren
           )
         )
       )
@@ -212,10 +212,10 @@ final class BinaryTreeTests: XCTestCase {
     value: 10, .init(
       .node(
         value: 6,
-        .empty
+        .noChildren
       ), .node(
         value: 15,
-        .empty
+        .noChildren
       )
     )
   )

@@ -9,7 +9,7 @@ let package = Package(
       name: "BinaryTree",
       targets: ["BinaryTree"]),
   ],
-  dependencies: [.package(url: "https://github.com/erkekin/Tree.git", .upToNextMajor(from: "0.1.2"))],
+  dependencies: [.package(url: "https://github.com/erkekin/Tree.git", .exact("0.1.4"))],
   targets: [
     .target(
       name: "BinaryTree",
