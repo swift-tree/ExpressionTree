@@ -96,10 +96,15 @@ final class BinaryTreeTests: XCTestCase {
     XCTAssertEqual(tree.height, 3)
   }
 
-  func test_contains(){
+  func test_contains_bool(){
     initialItems.forEach{
       XCTAssertTrue(tree.contains($0))
     }
+  }
+
+  func test_search_path(){
+    XCTAssertEqual(tree.search(6), [5,10,6])
+    XCTAssertEqual(tree.search(1), [])
   }
 
   func test_string_preOrder(){
@@ -134,7 +139,7 @@ final class BinaryTreeTests: XCTestCase {
     ("test_traversals_inOrder", test_traversals_inOrder),
     ("test_traversals_postOrder", test_traversals_postOrder),
     ("test_string_preOrder", test_string_preOrder),
-    ("test_contains", test_contains),
+    ("test_contains_bool", test_contains_bool),
     ("test_height", test_height),
   ]
 }
