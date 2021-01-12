@@ -11,7 +11,7 @@ final class BinaryTreeTests: XCTestCase {
     
     tree = .empty
     initialItems = [5, 5, 10, 15, 6]
-    initialItems.forEach{tree.inserting($0)}
+    initialItems.forEach{tree.insert($0)}
 
     capturedItems = []
   }
@@ -26,6 +26,38 @@ final class BinaryTreeTests: XCTestCase {
 
   func test_init() {
     XCTAssertEqual(tree, tree5_10_6_15)
+  }
+
+  func test_removeTree_root_1_level() {
+    var tree = BinaryTree<Int>.empty.inserting(1)
+    tree.remove(treeUnder: 1)
+    
+    XCTAssertEqual(tree, .empty)
+  }
+
+  func test_removeTree_root_3_level() {
+    tree.remove(treeUnder: 5)
+
+    XCTAssertEqual(tree, .empty)
+  }
+
+  func test_removeTree_leaf_3_level() {
+    tree.remove(treeUnder: 15)
+
+    XCTAssertEqual(tree, BinaryTree<Int>.empty.inserting(5).inserting(10).inserting(6))
+  }
+
+  func test_removeTree_not_containing() {
+    tree.remove(treeUnder: 1)
+
+    XCTAssertEqual(tree, tree)
+  }
+
+  func test_removeTree_leaf_2_level() {
+    var tree = BinaryTree<Int>.empty.inserting(2).inserting(1)
+    tree.remove(treeUnder: 1)
+
+    XCTAssertEqual(tree, BinaryTree<Int>.empty.inserting(2))
   }
   
   func test_traversals_preOrder() {
@@ -54,19 +86,19 @@ final class BinaryTreeTests: XCTestCase {
 
   func test_height(){
     var tree: BinaryTree<Int> = .empty
-    tree.inserting(5)
+    tree.insert(5)
 
     XCTAssertEqual(tree.height, 1)
 
-    tree.inserting(10)
+    tree.insert(10)
 
     XCTAssertEqual(tree.height, 2)
 
-    tree.inserting(15)
+    tree.insert(15)
 
     XCTAssertEqual(tree.height, 3)
 
-    tree.inserting(6)
+    tree.insert(6)
 
     XCTAssertEqual(tree.height, 3)
   }
@@ -93,11 +125,11 @@ final class BinaryTreeTests: XCTestCase {
   func test_string_preOrder(){
     var paths = [String]()
     var tree: BinaryTree<String> = .empty
-    tree.inserting("abc")
-    tree.inserting("bca")
-    tree.inserting("acb")
-    tree.inserting("ab")
-    tree.inserting("ca")
+    tree.insert("abc")
+    tree.insert("bca")
+    tree.insert("acb")
+    tree.insert("ab")
+    tree.insert("ca")
 
     tree.traverse(method: .preOrder) { _, path in
       paths.append(path.joined(separator: "/"))
@@ -120,20 +152,20 @@ final class BinaryTreeTests: XCTestCase {
   private let tree5_10_6_15: BinaryTree<Int> = .node(
     value: 5,
     .init(
-      left: .empty,
-      right: .node(
+      .empty,
+      .node(
         value: 10, .init(
-          left: .node(
+          .node(
             value: 6,
             .init(
-              left: .empty,
-              right: .empty
+              .empty,
+              .empty
             )
-          ), right: .node(
+          ), .node(
             value: 15,
             .init(
-              left: .empty,
-              right: .empty
+              .empty,
+              .empty
             )
           )
         )
@@ -143,17 +175,17 @@ final class BinaryTreeTests: XCTestCase {
 
   private let tree10_6_15: BinaryTree<Int> = .node(
     value: 10, .init(
-      left: .node(
+      .node(
         value: 6,
         .init(
-          left: .empty,
-          right: .empty
+          .empty,
+          .empty
         )
-      ), right: .node(
+      ), .node(
         value: 15,
         .init(
-          left: .empty,
-          right: .empty
+          .empty,
+          .empty
         )
       )
     )
@@ -165,6 +197,11 @@ final class BinaryTreeTests: XCTestCase {
     ("test_traversals_inOrder", test_traversals_inOrder),
     ("test_traversals_postOrder", test_traversals_postOrder),
     ("test_string_preOrder", test_string_preOrder),
+    ("test_removeTree_root_1_level", test_removeTree_root_1_level),
+    ("test_removeTree_root_3_level", test_removeTree_root_3_level),
+    ("test_removeTree_not_containing", test_removeTree_not_containing),
+    ("test_removeTree_leaf_2_level", test_removeTree_leaf_2_level),
+    ("test_removeTree_leaf_3_level", test_removeTree_leaf_3_level),
     ("test_contains_other_tree", test_contains_other_tree),
     ("test_contains_bool", test_contains_bool),
     ("test_height", test_height),
