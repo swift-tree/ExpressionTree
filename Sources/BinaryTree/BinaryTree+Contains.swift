@@ -1,5 +1,5 @@
-extension Tree where Children == BinaryChildren<Element>, Element: Equatable & Comparable {
-  public func contains(_ tree: Tree) -> Bool {
+public extension Tree where Children == BinaryChildren<Element>, Element: Equatable & Comparable {
+  func contains(_ tree: Tree) -> Bool {
     switch (tree, self) {
     case let (.node(value: newValue, _), .node(value: oldValue, _)) where newValue == oldValue:
       return true
@@ -7,13 +7,12 @@ extension Tree where Children == BinaryChildren<Element>, Element: Equatable & C
       return children.right.contains(tree)
     case let (.node, .node(value: _, children)):
       return children.left.contains(tree)
-
     case  (.empty, .node), (.empty, .empty): return true
     case  (.node, .empty): return false
     }
   }
   
-  public func contains(_ i: Element) -> Bool {
+  func contains(_ i: Element) -> Bool {
     guard case let .node(value: value, children) = self else { return false }
     if i < value {
       return children.left.contains(i)
@@ -24,7 +23,7 @@ extension Tree where Children == BinaryChildren<Element>, Element: Equatable & C
     }
   }
 
-  public func search(initialPath: [Element] = [], _ i: Element) -> [Element] {
+  func search(initialPath: [Element] = [], _ i: Element) -> [Element] {
     guard case let .node(value: value, children) = self else { return [] }
     let path = initialPath + [value]
     if i < value {

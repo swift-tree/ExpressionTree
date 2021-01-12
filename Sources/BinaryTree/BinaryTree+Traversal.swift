@@ -4,8 +4,8 @@ public enum DepthFirstTraversal {
   case postOrder
 }
 
-extension Tree where Children == BinaryChildren<Element> {
-  public func traverse(
+public extension Tree where Children == BinaryChildren<Element> {
+  func traverse(
     initialPath: [Element] = [],
     method: DepthFirstTraversal,
     visit: @escaping (Element, [Element]) -> ()
