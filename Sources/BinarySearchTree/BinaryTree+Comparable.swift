@@ -1,6 +1,7 @@
+import BinaryTree
 import Tree
 
-public extension Tree where Children == BinaryChildren<Element>, Element: Comparable {
+public extension BinaryTree where Children == BinaryChildren<Element>, Element: Comparable {
   init(_ elements: [Element]) {
     var tree: BinaryTree<Element> = .empty
     elements.forEach{tree.insert($0)}
@@ -54,7 +55,7 @@ public extension Tree where Children == BinaryChildren<Element>, Element: Compar
       return .node(value: value, .init(children.left.inserting(i), children.right))
     case let .node(value: value, children):
       return .node(value: value, .init(children.left, children.right.inserting(i)))
-    case .empty: return .node(value: i, .noChildren)
+    case .empty: return .node(value: i, .noDescendent)
     }
   }
 }
