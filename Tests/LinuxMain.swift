@@ -1,7 +1,7 @@
 import XCTest
 
-import BinarySearchTreeTests
+import ExpressionTreeTests
 
 var tests = [XCTestCaseEntry]()
-tests += BinarySearchTreeTests.allTests()
+tests += ExpressionTreeTests.allTests()
 XCTMain(tests)

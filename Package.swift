@@ -3,11 +3,11 @@
 import PackageDescription
 
 let package = Package(
-  name: "BinarySearchTree",
+  name: "ExpressionTree",
   products: [
     .library(
-      name: "BinarySearchTree",
-      targets: ["BinarySearchTree"]),
+      name: "ExpressionTree",
+      targets: ["ExpressionTree"]),
   ],
   dependencies: [
    .package(path: "../BinaryTree"),
@@ -15,10 +15,10 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "BinarySearchTree",
+      name: "ExpressionTree",
       dependencies: ["BinaryTree"]),
     .testTarget(
-      name: "BinarySearchTreeTests",
-      dependencies: ["BinarySearchTree", "BinaryTree"]),
+      name: "ExpressionTreeTests",
+      dependencies: ["ExpressionTree", "BinaryTree"]),
   ]
 )
