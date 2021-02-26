@@ -1,9 +1,11 @@
 import XCTest
+import BinarySearchTree
 import BinaryTree
-import Tree
 
 final class BinaryTreeTests: XCTestCase {
-  var tree: BinaryTree<Int>!
+  typealias BinaryIntegerTree = BinaryTree<Int>
+  
+  var tree: BinaryIntegerTree!
   var capturedItems: [Int]!
   
   override func setUp() {
@@ -25,31 +27,31 @@ final class BinaryTreeTests: XCTestCase {
   }
   
   func test_min_no_left_tree() {
-    let tree = BinaryTree<Int>([6, 7, 8 ,9 ,10])
+    let tree = BinaryIntegerTree([6, 7, 8 ,9 ,10])
     
     XCTAssertEqual(tree.min, tree)
   }
 
   func test_min_no_right_tree() {
-    let tree = BinaryTree<Int>([6, 7, 8 ,9 ,10].reversed())
+    let tree = BinaryIntegerTree([6, 7, 8 ,9 ,10].reversed())
     
-    XCTAssertEqual(tree.min, .node(value: 6, .noChildren))
+    XCTAssertEqual(tree.min, .node(value: 6, .noDescendent))
   }
   
   func test_min_right_tree() {
-    XCTAssertEqual(tree.children?.right.min, .node(value: 6, .noChildren))
+    XCTAssertEqual(tree.children?.right.min, .node(value: 6, .noDescendent))
   }
   
   func test_remove_root_1_level() {
-    var tree = BinaryTree<Int>([1])
+    var tree = BinaryIntegerTree([1])
     tree.remove(1)
     
     XCTAssertEqual(tree, .empty)
   }
   
   func test_remove_one_childed() {
-    var actual = BinaryTree<Int>([16, 5, 10, 15, 6])
-    let expected = BinaryTree<Int>([16, 10, 15, 6])
+    var actual = BinaryIntegerTree([16, 5, 10, 15, 6])
+    let expected = BinaryIntegerTree([16, 10, 15, 6])
     
     actual.remove(5)
     
@@ -57,8 +59,8 @@ final class BinaryTreeTests: XCTestCase {
   }
   
   func test_remove_two_children_node() {
-    var actual = BinaryTree<Int>([16, 5, 10, 15, 3])
-    let expected = BinaryTree<Int>([16, 10, 3, 15])
+    var actual = BinaryIntegerTree([16, 5, 10, 15, 3])
+    let expected = BinaryIntegerTree([16, 10, 3, 15])
     
     actual.remove(5)
     
@@ -66,8 +68,8 @@ final class BinaryTreeTests: XCTestCase {
   }
   
   func test_remove_root_two_children_node() {
-    var actual = BinaryTree<Int>([16, 5, 10, 15, 3, 6, 20])
-    let expected = BinaryTree<Int>([20, 5, 10, 15, 3, 6])
+    var actual = BinaryIntegerTree([16, 5, 10, 15, 3, 6, 20])
+    let expected = BinaryIntegerTree([20, 5, 10, 15, 3, 6])
     
     actual.remove(16)
     
@@ -75,7 +77,7 @@ final class BinaryTreeTests: XCTestCase {
   }
   
   func test_removeTree_root_1_level() {
-    var tree = BinaryTree<Int>.empty.inserting(1)
+    var tree = BinaryIntegerTree.empty.inserting(1)
     tree.remove(treeUnder: 1)
     
     XCTAssertEqual(tree, .empty)
@@ -90,7 +92,7 @@ final class BinaryTreeTests: XCTestCase {
   func test_removeTree_leaf_3_level() {
     tree.remove(treeUnder: 15)
     
-    XCTAssertEqual(tree, BinaryTree<Int>([5, 10, 6]))
+    XCTAssertEqual(tree, BinaryIntegerTree([5, 10, 6]))
   }
   
   func test_removeTree_not_containing() {
@@ -100,10 +102,10 @@ final class BinaryTreeTests: XCTestCase {
   }
   
   func test_removeTree_leaf_2_level() {
-    var tree = BinaryTree<Int>([2, 1])
+    var tree = BinaryIntegerTree([2, 1])
     tree.remove(treeUnder: 1)
     
-    XCTAssertEqual(tree, BinaryTree<Int>([2]))
+    XCTAssertEqual(tree, BinaryIntegerTree([2]))
   }
   
   func test_traversals_preOrder() {
@@ -131,7 +133,7 @@ final class BinaryTreeTests: XCTestCase {
   }
   
   func test_height(){
-    var tree: BinaryTree<Int> = .empty
+    var tree: BinaryIntegerTree = .empty
     tree.insert(5)
     
     XCTAssertEqual(tree.height, 1)
@@ -156,7 +158,7 @@ final class BinaryTreeTests: XCTestCase {
   }
   
   func test_search_path(){
-    XCTAssertEqual(tree.search(6), .node(value: 5, .init(.node(value: 10, .init(.node(value: 6, .noChildren))))))
+    XCTAssertEqual(tree.search(6), .node(value: 5, .init(.node(value: 10, .init(.node(value: 6, .noDescendent))))))
     XCTAssertEqual(tree.search(1), .empty)
   }
   
@@ -165,7 +167,7 @@ final class BinaryTreeTests: XCTestCase {
     XCTAssertTrue(tree5_10_6_15.contains(tree))
     XCTAssertTrue(tree5_10_6_15.contains(tree10_6_15))
     XCTAssertTrue(tree.contains(.empty))
-    XCTAssertTrue(BinaryTree<Int>.empty.contains(.empty))
+    XCTAssertTrue(BinaryIntegerTree.empty.contains(.empty))
   }
   
   func test_string_preOrder(){
@@ -190,7 +192,7 @@ final class BinaryTreeTests: XCTestCase {
     )
   }
   
-  private let tree5_10_6_15: BinaryTree<Int> = .node(
+  private let tree5_10_6_15: BinaryIntegerTree = .node(
     value: 5,
     .init(
       .empty,
@@ -198,24 +200,24 @@ final class BinaryTreeTests: XCTestCase {
         value: 10, .init(
           .node(
             value: 6,
-            .noChildren
+            .noDescendent
           ), .node(
             value: 15,
-            .noChildren
+            .noDescendent
           )
         )
       )
     )
   )
   
-  private let tree10_6_15: BinaryTree<Int> = .node(
+  private let tree10_6_15: BinaryIntegerTree = .node(
     value: 10, .init(
       .node(
         value: 6,
-        .noChildren
+        .noDescendent
       ), .node(
         value: 15,
-        .noChildren
+        .noDescendent
       )
     )
   )

@@ -1,6 +1,7 @@
+import BinaryTree
 import Tree
 
-public extension Tree where Children == BinaryChildren<Element>, Element: Comparable {
+public extension BinaryTree where Children == BinaryChildren<Element>, Element: Comparable {
   func search(initialPath: LinkedList<Element> = .empty, _ i: Element) -> LinkedList<Element> {
     guard case let .node(value: value, children) = self else { return .empty }
     let path = initialPath.insert(value)

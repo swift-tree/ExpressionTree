@@ -3,19 +3,22 @@
 import PackageDescription
 
 let package = Package(
-  name: "BinaryTree",
+  name: "BinarySearchTree",
   products: [
     .library(
-      name: "BinaryTree",
-      targets: ["BinaryTree"]),
+      name: "BinarySearchTree",
+      targets: ["BinarySearchTree"]),
   ],
-  dependencies: [.package(url: "https://github.com/erkekin/Tree.git", .exact("0.1.5"))],
+  dependencies: [
+   .package(path: "../BinaryTree"),
+    //  .package(url: "https://github.com/erkekin/BinaryTree.git", .exact("0.1.5"))
+  ],
   targets: [
     .target(
-      name: "BinaryTree",
-      dependencies: ["Tree"]),
+      name: "BinarySearchTree",
+      dependencies: ["BinaryTree"]),
     .testTarget(
-      name: "BinaryTreeTests",
-      dependencies: ["BinaryTree", "Tree"]),
+      name: "BinarySearchTreeTests",
+      dependencies: ["BinarySearchTree", "BinaryTree"]),
   ]
 )
