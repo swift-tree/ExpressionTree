@@ -1,7 +1,7 @@
 import BinaryTree
 import Tree
 
-extension BinaryTree where Descendent == BinaryChildren<Element>, Element == Token {
+extension ExpressionTree where Descendent == BinaryChildren<Element> {
   public static func parse(_ prefixTokens: LinkedList<Token>) -> Self {
     _parse(prefixTokens).tree
   }

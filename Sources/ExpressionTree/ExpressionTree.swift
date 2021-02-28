@@ -1,6 +1,8 @@
 import BinaryTree
 import Tree
 
+public typealias ExpressionTree = BinaryTree<Token>
+
 public enum Token: CustomDebugStringConvertible {
   case num(Int)
   case funct(Operation)

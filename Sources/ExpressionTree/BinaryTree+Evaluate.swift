@@ -1,6 +1,6 @@
 import BinaryTree
 
-public extension BinaryTree where Descendent == BinaryChildren<Element>, Element == Token {
+public extension ExpressionTree where Descendent == BinaryChildren<Element> {
   var evaluate: Int? {
     switch self {
     case .empty:

@@ -3,8 +3,6 @@ import ExpressionTree
 import XCTest
 
 final class ExpressionTreeTests: XCTestCase {
-  typealias ExpressionTree = BinaryTree<Token>
-
   func test_evaluate_one_degree() {
     let tree = ExpressionTree.node(value: .funct(.multiply), .init(.leaf(2), .leaf(3)))
 
