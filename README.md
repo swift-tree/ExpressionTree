@@ -1,6 +1,6 @@
-# BinaryTree
+# ExpressionTree
 
-A value-typed binary tree in Swift.
+A value-typed Expression Tree in Swift.
 See tests to learn how to use it.
 
 ##
@@ -11,7 +11,7 @@ See tests to learn how to use it.
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/erkekin/BinaryTree.git", ...)
+        .package(url: "https://github.com/erkekin/ExpressionTree.git", ...)
     ]
 )
 ```
