@@ -11,9 +11,10 @@ See tests to learn how to use it.
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/erkekin/ExpressionTree.git", ...)
+        .package(url: "https://github.com/swift-tree/ExpressionTree.git", ...)
     ]
 )
 ```
 
 Erk Ekin
+
