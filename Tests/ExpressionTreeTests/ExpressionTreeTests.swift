@@ -77,6 +77,16 @@ final class ExpressionTreeTests: XCTestCase {
       print(token)
     }
   }
+  
+  func test_evaluate2() {
+    let tree = ExpressionTree(prefixExpression: "* ^ 2 3 ^ 3 2")
+
+    XCTAssertEqual(tree.evaluate, 9 * 8)
+
+    tree.traverse(method: .inOrder) { token, _ in
+      print(token)
+    }
+  }
 
   func test_evaluate_postfix1() {
     let tree = ExpressionTree.parse([.funct(.add), .funct(.multiply), .num(4), .num(2), .num(2_323)])
