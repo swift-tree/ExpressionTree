@@ -24,6 +24,16 @@ final class ExpressionTreeTests: XCTestCase {
 
     XCTAssertEqual(tree.evaluate, 2 * 4 + 2 * 3)
   }
+  
+  func test_evaluate_init1234() {
+    let tree = ExpressionTree
+      .node(value: .funct(.add), .init(.node(
+        value: .funct(.exponential),
+        .init(.leaf(2), .leaf(4))
+      ), .node(value: .funct(.multiply), .init(.leaf(2), .leaf(3)))))
+
+    XCTAssertEqual(tree.evaluate, Int(pow(Double(2), 4)) + 2 * 3)
+  }
 
   func test_parser_one_degree() {
     let actual = ExpressionTree.node(value: .funct(.add), .init(.leaf(.num(2)), .leaf(.num(5))))

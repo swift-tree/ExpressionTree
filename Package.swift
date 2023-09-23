@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.8
 
 import PackageDescription
 
@@ -11,7 +11,7 @@ let package = Package(
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/swift-tree/BinaryTree.git", .exact("1.0.4")),
+    .package(url: "https://github.com/swift-tree/BinaryTree.git", exact: "1.0.4")
   ],
   targets: [
     .target(

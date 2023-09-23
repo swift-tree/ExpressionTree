@@ -1,5 +1,6 @@
 import BinaryTree
 import Tree
+import Foundation
 
 public typealias ExpressionTree = BinaryTree<Token>
 
@@ -41,13 +42,14 @@ extension Token: Equatable {
       String(sign)
     }
 
-    case multiply, divide, add, subtract
+    case multiply, divide, add, subtract, exponential
     var f: Func {
       switch self {
       case .add: return (+)
       case .divide: return (/)
       case .multiply: return (*)
       case .subtract: return (-)
+      case .exponential: return { Int(pow(Double($0), Double($1))) }
       }
     }
 
@@ -57,6 +59,7 @@ extension Token: Equatable {
       case .divide: return "/"
       case .multiply: return "*"
       case .subtract: return "-"
+      case .exponential: return "^"
       }
     }
 
@@ -70,6 +73,8 @@ extension Token: Equatable {
         self = .subtract
       case "+":
         self = .add
+      case "^":
+        self = .exponential
       default:
         return nil
       }
