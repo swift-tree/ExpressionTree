@@ -21,7 +21,7 @@ extension ExpressionTree where Descendent == BinaryChildren<Element> {
     }
   }
 
-  public init(prefixExpression: String) {
+  public init(_ prefixExpression: String) {
     self = Self
       .parse(LinkedList(
         prefixExpression

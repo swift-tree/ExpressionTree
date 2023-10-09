@@ -55,7 +55,7 @@ final class ExpressionTreeTests: XCTestCase {
   }
 
   func test_evaluate_postfix() {
-    let tree = ExpressionTree(prefixExpression: "+ * 4 2 2323")
+    let tree = ExpressionTree("+ * 4 2 2323")
 
     XCTAssertEqual(tree, .parse([.funct(.add), .funct(.multiply), .num(4), .num(2), .num(2_323)]))
     XCTAssertEqual(tree, .node(value: .funct(.add), .init(.node(value: .funct(.multiply), .init(.leaf(4), .leaf(2))), .leaf(.num(2_323)))))
@@ -63,23 +63,29 @@ final class ExpressionTreeTests: XCTestCase {
   }
 
   func test_evaluate() {
-    let tree = ExpressionTree(prefixExpression: "* * * * * * * * 1 2 3 4 5 6 7 8 9")
+    let tree = ExpressionTree("* * * * * * * * 1 2 3 4 5 6 7 8 9")
 
     XCTAssertEqual(tree.evaluate, 1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9)
   }
 
   func test_evaluate1() {
-    let tree = ExpressionTree(prefixExpression: "* * * * * * * 3 4 5 60 7 8 9 * 1 2")
+    let tree = ExpressionTree("* * * * * * * 3 4 5 60 7 8 9 * 1 2")
 
     XCTAssertEqual(tree.evaluate, 1 * 2 * 3 * 4 * 5 * 60 * 7 * 8 * 9)
-
+    
+    var output = [Token]()
     tree.traverse(method: .inOrder) { token, _ in
-      print(token)
+      output.append(token)
     }
+    
+    XCTAssertEqual(
+      output.map(\.debugDescription),
+      ["3", "*", "4", "*", "5", "*", "60", "*", "7", "*", "8", "*", "9", "*", "1", "*", "2"]
+    )
   }
   
   func test_evaluate2() {
-    let tree = ExpressionTree(prefixExpression: "* ^ 2 3 ^ 3 2")
+    let tree = ExpressionTree("* ^ 2 3 ^ 3 2")
 
     XCTAssertEqual(tree.evaluate, 9 * 8)
   }
@@ -92,5 +98,16 @@ final class ExpressionTreeTests: XCTestCase {
 
   static var allTests = [
     ("test_evaluate_one_degree", test_evaluate_one_degree),
+    ("test_evaluate_postfix1", test_evaluate_postfix1),
+    ("test_evaluate2", test_evaluate2),
+    ("test_evaluate1", test_evaluate1),
+    ("test_evaluate", test_evaluate),
+    ("test_evaluate_postfix", test_evaluate_postfix),
+    ("test_parser1", test_parser1),
+    ("test_parser2", test_parser2),
+    ("test_parser_one_degree", test_parser_one_degree),
+    ("test_evaluate_init1234", test_evaluate_init1234),
+    ("test_evaluate_two_degrees", test_evaluate_two_degrees),
   ]
 }
+
