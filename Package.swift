@@ -11,7 +11,7 @@ let package = Package(
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/swift-tree/BinaryTree.git", exact: "1.0.5")
+    .package(url: "https://github.com/swift-tree/BinaryTree.git", exact: "1.0.6")
   ],
   targets: [
     .target(

@@ -27,14 +27,13 @@ public enum Token: CustomDebugStringConvertible {
     }
   }
 }
-
 extension Token: ExpressibleByIntegerLiteral {
   public init(integerLiteral value: Int) {
     self = .num(value)
   }
 }
 
-extension Token: Equatable {
+extension Token {
   public enum Operation: CustomDebugStringConvertible {
     public typealias Func = (Int, Int) -> Int
 
@@ -81,3 +80,7 @@ extension Token: Equatable {
     }
   }
 }
+
+extension Token: Hashable {}
+extension Token.Operation: Codable {}
+extension Token: Codable {}
